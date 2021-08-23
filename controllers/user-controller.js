@@ -146,7 +146,7 @@ const userController = {
     },
 
 
-// Update user's friends by Id 
+// Delete user's friends by Id 
 // Delete route
 //.... /api/users/:userId/friends/:friendId
 
