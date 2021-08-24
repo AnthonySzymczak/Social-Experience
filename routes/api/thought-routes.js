@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 //Object's declaration to retrieve, update, delete thoughts, and to add/delete reactions.
 const {
-    getAllThoughts,
+    getThoughts,
     getThoughtById,
     createThought,
     updateThought,
@@ -15,7 +15,7 @@ const {
 //routes for retrieving all thoughts, and creating thoughts
 router
     .route('/')
-    .get(getAllThoughts)
+    .get(getThoughts)
     .post(createThought);
 
 // routes by id, retrieving, updating, and deleting thoughts.
@@ -26,8 +26,9 @@ router
     .delete(deleteThought);
 
 //routes to add and delete reactions
-router.route('/:thoughtId/reactions/')
+router
+    .route('/:thoughtId/reactions/')
     .post(addReaction)
-    .delete(deleteReaction)
+    .delete(deleteReaction);
 
 module.exports = router;

@@ -8,7 +8,7 @@ const userController = {
 // Get route
 //.... /api/users
 
-    getAllUsers(req, res) {
+    getUsers(req, res) {
         User.find({})
         .select('-__v')
         .then(dbUserData => res.json(dbUserData))
@@ -110,6 +110,8 @@ const userController = {
 // Post route
 //.... /api/users/:userId/friends/:friendId
 
+//Here we need to isolate the user, to give them friends.
+
     addFriend({ params }, res) {
 
         User.findOneAndUpdate(
@@ -124,9 +126,7 @@ const userController = {
                     );
                 return;
             }
-
-
-            User.findOneAndUpdate(
+        User.findOneAndUpdate(
                 { _id: params.friendId },
                 { $addToSet: { friends: params.userId } },
                 { new: true, runValidators: true }
@@ -150,7 +150,7 @@ const userController = {
 // Delete route
 //.... /api/users/:userId/friends/:friendId
 
-//Here we need to isolate the user, and his friends to delete.
+//Here we need to isolate the user, and their friends to delete.
 
     deleteFriend({ params }, res) {
 
@@ -166,8 +166,6 @@ const userController = {
                     );
                 return;
             };
-
-
         User.findOneAndUpdate(
                 { _id: params.friendId },
                 { $pull: { friends: params.userId } },
@@ -181,7 +179,7 @@ const userController = {
                     return;
                 }
                 res.json(
-                    {message: 'They are no longer your friend'}
+                    {message: 'They are no longer your friend!'}
                     );
             })
             .catch(err => res.json(err));
@@ -190,4 +188,6 @@ const userController = {
     }
 };
 
+
+//exports userController
 module.exports = userController;

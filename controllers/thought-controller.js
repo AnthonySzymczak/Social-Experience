@@ -10,7 +10,7 @@ const thoughtController = {
 // Get route
 //.... /api/thoughts
 
-    getAllThoughts(req, res) {
+    getThoughts(req, res) {
         Thought.find({})
         .populate({ path: 'reactions', select: '-__v' })
         .select('-__v')
@@ -173,4 +173,5 @@ const thoughtController = {
     },
 }
 
+//exports thoughtController
 module.exports = thoughtController;

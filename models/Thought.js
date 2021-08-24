@@ -1,4 +1,4 @@
-//  setting up the schema, declaration of moment for date time
+//  setting up the schema, require dateFormat for date time
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
 const dateFormat = require('../utils/dateFormat');
@@ -28,6 +28,7 @@ const thoughtSchema = new Schema({
     reactions: [reactionSchema]
 },
 {
+    //Always set toJson
     toJSON: {
         virtuals: true,
         getters: true
@@ -42,5 +43,6 @@ thoughtSchema.virtual('reactionCount').get(function() {
 
 const Thought = model('Thought', thoughtSchema);
 
+//export to Thought
 module.exports = Thought;
 
